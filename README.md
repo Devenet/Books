@@ -1,4 +1,4 @@
-# ![myMovies](https://raw.github.com/nicolabricot/myBooks/gh-pages/images/books_32x32.png) myMovies
+# ![myMovies](https://raw.githubusercontent.com/nicolabricot/myBooks/master/assets/icon/favicon.png) myMovies
 
 __Light web application to manage books and track their state__  
 
