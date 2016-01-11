@@ -790,7 +790,7 @@ function displaySummary($summary, $size = 400) {
 // Convert note into stars
 function displayNote($note) {
 	$empty_stars = 5 - $note;
-	$result = '<div class="stars stars-'.$note.' tip" data-title="'.$note.' out of 10">';
+	$result = '<div class="stars stars-'.$note.' tip" data-title="'.$note.' out of 5">';
 	for ($i=0; $i<$note; $i++)
 		$result .= '<i class="icon-star"></i>';
 	for ($i=0; $i<$empty_stars; $i++)
