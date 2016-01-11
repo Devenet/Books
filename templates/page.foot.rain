@@ -1,0 +1,22 @@
+<footer>
+<div class="container">
+<hr />
+<div class="row">
+	<div class="col-lg-12">
+	<p class="pull-left">
+		<strong><a href="https://github.com/nicolabricot/myBooks" rel="external">{#MYBOOKS#}</a></strong> &middot; Version {#MYBOOKS_VERSION#} &middot; Created by <a href="http://nicolabricot.com" class="normal" rel="external">nicolabricot</a>
+		<br>Adapted from <a href="https://github.com/nicolabricot/myMovies" class="normal" rel="external">MyMovies</a> &middot; Inspired by <a href="https://github.com/sebsauvage/Shaarli" class="normal" rel="external">Shaarli</a> and <a href="http://reading.chad.is/" class="normal" rel="external">HelloHappy</a>
+		<br><small>Book images from <a href="https://www.iconfinder.com/iconsets/windows-8-metro-style" rel="external" class="normal" >Visual Pharm</a></small>
+	</p>
+	<ul class="pull-right nav nav-pills">
+		<li><a href="#" id="go_home_you_are_drunk" title="Back&nbsp;to&nbsp;top" class="tip" data-placement="top"><i class="icon-arrow-up"></i></a></li>
+	</ul>
+	</div>
+</div>
+</div>
+</footer>
+
+<script src="assets/js/jquery.js"></script>
+<script src="assets/js/bootstrap.js"></script>
+<script src="assets/js/books.js"></script>
+{if="isLogged()"}<script src="assets/js/books-admin.js"></script>{/if}

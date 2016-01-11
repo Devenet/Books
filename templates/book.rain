@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+{include="page.head"}
+</head>
+<body>
+{include="page.menu"}
+
+<div class="container">
+<article class="book">
+<div class="row">
+	<div class="col-lg-12">
+		<div class="page-header">
+			<h2>
+				{if="isLogged()"}<span class="book-tools"><a href="{$id|Path::edit}" class="text-success tip" title="Edit&nbsp;book" data-placement="right"><i class="icon-pencil"></i></a> <a href="{$id|Path::delete}&amp;token={$token}" class="text-danger tip" title="Delete&nbsp;book" data-placement="right" onclick="return confirmDeleteBook('{$book['title']}')"><i class="icon-trash"></i></a></span>{/if}
+				{$book['title']}
+				<span class="pull-right espace-right {if="$book['status'] == Book::SEEN"}text-success{else}text-warning{/if}">{$displayStatus}</span>
+			</h2>
+			{if="!empty($book['author'])"}<h3>{$displayAuthors}</h3>{/if}
+		</div>
+
+	</div>
+</div>
+
+<div class="row espace-top">
+	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 text-center espace-bottom">
+		<p><img src="{if="$book['link_image'] != NULL"}{$book['link_image']}{else}assets/img/book.jpg{/if}" alt="{$book['title']}" class="img-responsive img-thumbnail" width="160" height="213" /></p>
+		{if="$book['status'] == Book::SEEN"}{$displayNote}{/if}
+	</div>
+	<div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 aside text-muted pull-right">
+		<div class="espace-bottom">
+			<p>
+				<span class="{if="$book['status'] == Book::SEEN"}text-success{else}text-warning{/if}">{$displayStatus} {if="$book['status'] == Book::SEEN"}Read{else}Not read{/if}</span>
+				{if="!empty($book['read_date'])"}<br><small><i>on {$book['read_date']}</i></small>{/if}
+			</p>
+
+		</div>
+		<div class="details-group espace-bottom">
+			{if="!empty($book['publisher'])"}<p class="text-pub">{$book['publisher']}</p>{/if}
+			{if="!empty($book['publication_year'])"}<p class="text-pub">{$book['publication_year']}</p>{/if}
+			{if="!empty($book['pages'])"}<p>{$book['pages']} pages</p>{/if}
+		</div>
+
+		{if="!empty($country)"}<p>{$country|displayFlagWithName}</p>{/if}
+		<ul class="list-unstyled espace-top text-muted">
+			{$displayGenres}
+		</ul>
+		{if="!empty($book['link_website'])"}<p class="espace-top"><a href="{$book['link_website']}" rel="external" class="normal tip" title="External information"><i class="icon-globe"></i> more online</a></p>{/if}
+	</div>
+	<div class="clearfix visible-sm"></div>
+	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+		<h4>Summary</h4>
+		<p class="summary">{$book['summary']}</p>
+		{if="!empty($book['review'])"}
+		<h4 class="espace-top-lg">Review</h4>
+		<p class="review">{$book['review']}</p>
+		{/if}
+	</div>
+</div>
+
+</article>
+</div>
+
+<div class="container espace-top espace-ng-bottom">
+	<ul class="pager">
+		{if="!empty($book_previous)"}<li class="previous"><a href="{$book_previous.id|Path::book}"><i class="icon-arrow-left"></i> {$book_previous.title}</a></li>{/if}
+		{if="!empty($book_next)"}<li class="next"><a href="{$book_next.id|path::book}">{$book_next.title} <i class="icon-arrow-right"></i></a></li>{/if}
+	</ul>
+</div>
+
+{include="page.foot"}
+</body>
+</html>

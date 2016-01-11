@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+{include="page.head"}
+<style>option {display:block; padding:4px 8px;}</style>
+</head>
+<body>
+{include="page.menu"}
+
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+	<h3>It looks like it is the first time you run “{#MYBOOKS#}”. <br />Please configure it!</h3>
+	<hr />
+</div>
+</div>
+
+{if="!empty($error_img)"}
+<div class="row">
+<div class="col-md-8 col-md-offset-2">
+	<div class="alert alert-info">
+		<strong>Oh damn!</strong> It seems that the PHP library GD is disabled or not installed on your server (the function <code>imagecreatefromjpeg()</code> is undefined).
+		<br />You can still use the application but you will not be able to import images from URL and generate thumbnails until you activate it <i class="icon-smile"></i>.
+	</div>
+</div>
+</div>
+{/if}
+
+<form class="form-horizontal espace-top" method="post" action=".">
+<fieldset>
+	<div class="form-group">
+		<label for="login" class="control-label col-md-2">Login</label>
+		<div class="col-md-8">
+			<input type="text" class="form-control" id="login" name="login" placeholder="Username" autofocus/>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="password" class="control-label col-md-2">Password</label>
+		<div class="col-md-8">
+			<input type="password" class="form-control" id="password" name="password" placeholder="Password" />
+		</div>
+	</div>
+
+	<div class="form-group espace-top-lg">
+		<label for="title" class="control-label col-md-2">Title of the page</label>
+		<div class="col-md-8">
+			<input type="text" class="form-control" id="title" name="title" value="{#MYBOOKS#}" />
+			<p class="help-block">You can change it later if needed <i class="icon-smile"></i>.</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="login" class="control-label col-md-2">Main language</label>
+		<div class="col-md-8">
+			<select class="form-control" id="locale" name="locale">
+				{$locales}
+			</select>
+			<p class="help-block">Used for RSS feed.</p>
+		</div>
+	</div>
+
+	<div class="form-group form-controls">
+		<div class="col-md-8 col-md-offset-2">
+			<button type="submit" class="btn btn-primary">Save</button>
+		</div>
+	</div>
+</fieldset>
+</form>
+</div>
+
+{include="page.foot"}
+</body>
+</html>
