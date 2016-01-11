@@ -1,4 +1,4 @@
-# ![myMovies](https://raw.githubusercontent.com/nicolabricot/myBooks/master/assets/icon/favicon.png) myMovies
+# ![myBooks](https://raw.githubusercontent.com/nicolabricot/myBooks/master/assets/icon/favicon.png) myBooks
 
 __Light web application to manage books and track their state__  
 
