@@ -1,11 +1,11 @@
-# ![myBooks](https://raw.githubusercontent.com/nicolabricot/myBooks/master/assets/icon/favicon.png) myBooks
+# ![myBooks](https://raw.githubusercontent.com/nicolabricot/MyBooks/master/assets/icon/favicon.png) MyBooks
 
 __Light web application to manage books and track their state__  
 
 
 
-Version 1.0.0 is now available!  
-[Download the last version](https://github.com/nicolabricot/myBooks/releases)
+Version 1.0 is now available!  
+[Download the last version](https://github.com/nicolabricot/MyBooks/releases)
 
 
 Main features:
@@ -31,8 +31,8 @@ Main features:
 - IE < 7 not friendly (not my problem)
 - Export and import books with JSON file (it's possible to keep data private)
 
-![myBooks](https://raw.github.com/nicolabricot/myBooks/master/myBooks.jpg)
+![myBooks](https://raw.github.com/nicolabricot/MyBooks/master/MyBooks.jpg)
 
 
-Adapted from [myMovies](https://github.com/nicolabricot/myMovies) for books
+Adapted from [myMovies](https://github.com/nicolabricot/MyMovies) for books
 Inspired by [Shaarli](https://github.com/sebsauvage/Shaarli) and [HelloHappy](http://books.hellohappy.org/).

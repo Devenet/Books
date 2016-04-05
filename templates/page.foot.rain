@@ -3,11 +3,12 @@
 <hr />
 <div class="row">
 	<div class="col-lg-12">
-	<p class="pull-left">
-		<strong><a href="https://github.com/nicolabricot/myBooks" rel="external">{#MYBOOKS#}</a></strong> &middot; Version {#MYBOOKS_VERSION#} &middot; Created by <a href="http://nicolabricot.com" class="normal" rel="external">nicolabricot</a>
-		<br>Adapted from <a href="https://github.com/nicolabricot/myMovies" class="normal" rel="external">MyMovies</a> &middot; Inspired by <a href="https://github.com/sebsauvage/Shaarli" class="normal" rel="external">Shaarli</a> and <a href="http://reading.chad.is/" class="normal" rel="external">HelloHappy</a>
-		<br><small>Book images from <a href="https://www.iconfinder.com/iconsets/windows-8-metro-style" rel="external" class="normal" >Visual Pharm</a></small>
-	</p>
+	<div class="pull-left">
+		<p><strong><a href="https://github.com/nicolabricot/myBooks" rel="external" data-version="v{#MYBOOKS_VERSION#">{#MYBOOKS#}</a></strong> &middot; Light web application to manage books and track their state</p>
+		<p class="text-muted inspiration">Made with <i class="icon-heart"></i> by <a href="http://nicolas.devenet.info" class="normal" rel="external">Nicolas Devenet</a> &middot; <small>Inspired by <a href="https://github.com/sebsauvage/Shaarli" class="normal" rel="external">Shaarli</a> and <a href="http://reading.chad.is/" class="normal" rel="external">HelloHappy</a>
+		 	&middot; Books image from <a href="https://www.iconfinder.com/iconsets/windows-8-metro-style" rel="external" class="normal" >Visual Pharm</a></small>
+		</p>
+	</div>
 	<ul class="pull-right nav nav-pills">
 		<li><a href="#" id="go_home_you_are_drunk" title="Back&nbsp;to&nbsp;top" class="tip" data-placement="top"><i class="icon-arrow-up"></i></a></li>
 	</ul>

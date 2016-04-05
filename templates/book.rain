@@ -14,7 +14,7 @@
 			<h2>
 				{if="isLogged()"}<span class="book-tools"><a href="{$id|Path::edit}" class="text-success tip" title="Edit&nbsp;book" data-placement="right"><i class="icon-pencil"></i></a> <a href="{$id|Path::delete}&amp;token={$token}" class="text-danger tip" title="Delete&nbsp;book" data-placement="right" onclick="return confirmDeleteBook('{$book['title']}')"><i class="icon-trash"></i></a></span>{/if}
 				{$book['title']}
-				<span class="pull-right espace-right {if="$book['status'] == Book::SEEN"}text-success{else}text-warning{/if}">{$displayStatus}</span>
+				<!--<span class="pull-right espace-right {if="$book['status'] == Book::SEEN"}text-success{else}text-warning{/if}">{$displayStatus}</span>-->
 			</h2>
 			{if="!empty($book['author'])"}<h3>{$displayAuthors}</h3>{/if}
 		</div>
@@ -30,14 +30,14 @@
 	<div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 aside text-muted pull-right">
 		<div class="espace-bottom">
 			<p>
-				<span class="{if="$book['status'] == Book::SEEN"}text-success{else}text-warning{/if}">{$displayStatus} {if="$book['status'] == Book::SEEN"}Read{else}Not read{/if}</span>
+				<span class="{if="$book['status'] == Book::SEEN"}text-success{else}text-muted{/if}">{$displayStatus} {if="$book['status'] == Book::SEEN"}Read{else}Not read{/if}</span>
 				{if="!empty($book['read_date'])"}<br><small><i>on {$book['read_date']}</i></small>{/if}
 			</p>
 
 		</div>
 		<div class="details-group espace-bottom">
 			{if="!empty($book['publisher'])"}<p class="text-pub">{$book['publisher']}</p>{/if}
-			{if="!empty($book['publication_year'])"}<p class="text-pub">{$book['publication_year']}</p>{/if}
+			{if="!empty($book['publication_year'])"}<p class="text-pub"><span class="tip text-muted" data-title="Publication&nbsp;year"><i class="icon-calendar"></i></span> {$book['publication_year']}</p>{/if}
 			{if="!empty($book['pages'])"}<p>{$book['pages']} pages</p>{/if}
 		</div>
 

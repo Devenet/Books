@@ -37,15 +37,12 @@ header .navbar-brand:hover {color:#428bca;}
 .navbar-books li.rss a:hover {color: #FF7A4D; border-color: #FF7A4D;}
 footer {margin: 20px auto 20px;}
 footer hr {border-top:2px solid #428bca;}
-footer p {font-size: 12px;}
-footer a.normal {color: #888;}
-footer a.normal:hover {color: #555; text-decoration: underline;}
+footer p {font-size:12px; margin-bottom:0;}
+footer a.normal {color: #777;}
+footer a.normal:hover {color: #444; text-decoration: underline;}
 
 .rss-feeds a {text-decoration: none;}
 .rss-feeds a i {color: #FF7A4D;}
-
-article.book .summary,
-article.book .review {font-family: Georgia,"DejaVu Serif","Bistream Vera Serif","Liberation Serif",serif;}
 
 article.books {margin-bottom: 20px;}
 article.books h2 a {text-decoration: none;}
@@ -54,6 +51,7 @@ article.books h2 small a {color: rgb(153,153,153);}
 article.books h2 small a:hover, article.books h2 small a:focus {text-decoration: underline;}
 article.books .row {margin-top: 20px;}
 article.books .kinds {font-size: 12px;}
+article.books .description {font-family:Georgia,"DejaVu Serif","Bistream Vera Serif","Liberation Serif",serif;}
 .stars {margin: 10px auto; font-size: 16px;}
 .stars i {margin-right: 2px;}
 .stars.stars-0 {color: #999999;}
@@ -73,8 +71,8 @@ article.book h3 {font-size: 18px; color: rgb(153,153,153); font-weight: normal; 
 article.book h3 a {color: rgb(153,153,153);}
 article.book .details-group p {margin-bottom: 0;}
 article.book .text-pub {color: #666;}
-article.book .summary {font-size: 16px;}
-article.book .review {font-style: italic;}
+article.book .summary {font-size: 16px; font-family: Georgia,"DejaVu Serif","Bistream Vera Serif","Liberation Serif",serif;}
+article.book .review {}
 article.book .stars {margin-top: 20px; letter-spacing: 2px;}
 
 /* .pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {background-color: rgb(245, 245, 245); border-color: #dddddd; color:rgb(153, 153, 153);} */
