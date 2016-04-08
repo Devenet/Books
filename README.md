@@ -31,7 +31,7 @@ Main features:
 - IE < 7 not friendly (not my problem)
 - Export and import books with JSON file (it's possible to keep data private)
 
-![myBooks](https://raw.github.com/nicolabricot/MyBooks/master/MyBooks.jpg)
+![myBooks](https://raw.github.com/nicolabricot/MyBooks/master/myBooks.jpg)
 
 
 Adapted from [myMovies](https://github.com/nicolabricot/MyMovies) for books
