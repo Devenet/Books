@@ -29,7 +29,7 @@ $_CONFIG['robots'] = 'noindex,nofollow,noarchive';
 define('PHPPREFIX','<?php /* ');
 define('PHPSUFFIX',' */ ?>');
 define('MYBOOKS', 'MyBooks');
-define('MYBOOKS_VERSION', '1.0.1');
+define('MYBOOKS_VERSION', '1.0.2');
 define('INACTIVITY_TIMEOUT', 3600);
 define('RSS', 'books.rss');
 
@@ -40,7 +40,7 @@ session_set_cookie_params($cookie['lifetime'], $cookiedir, $_SERVER['HTTP_HOST']
 ini_set('session.use_cookies', 1);
 ini_set('session.use_only_cookies', 1);
 ini_set('session.use_trans_sid', false);
-session_name('MyBooks');
+session_name('MyBooks_'.md5($_SERVER['SCRIPT_NAME']));
 if (session_id() == '') session_start();
 
 // check right before create directories
