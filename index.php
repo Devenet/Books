@@ -29,7 +29,7 @@ $_CONFIG['robots'] = 'noindex,nofollow,noarchive';
 define('PHPPREFIX','<?php /* ');
 define('PHPSUFFIX',' */ ?>');
 define('MYBOOKS', 'MyBooks');
-define('MYBOOKS_VERSION', '1.0.2');
+define('MYBOOKS_VERSION', '1.1.0');
 define('INACTIVITY_TIMEOUT', 3600);
 define('RSS', 'books.rss');
 
@@ -57,11 +57,16 @@ if (!is_file($_CONFIG['ban'])) { file_put_contents($_CONFIG['ban'], '<?php'.PHP_
 //ob_start();
 $tpl = new RainTPL();
 
-if (!is_file($_CONFIG['settings'])) { define('TITLE', $_CONFIG['title']); define('ROBOTS', $_CONFIG['robots']); install($tpl); }
+if (!is_file($_CONFIG['settings'])) { define('TITLE', $_CONFIG['title']); define('ROBOTS', $_CONFIG['robots']); define('AUTHOR', 'Nicolas Devenet'); install($tpl); }
 require($_CONFIG['settings']);
 define('TITLE', $_CONFIG['title']);
 define('PAGINATION', $_CONFIG['pagination']);
 define('ROBOTS', $_CONFIG['robots']);
+define('AUTHOR', empty($_CONFIG['author']) ? $_CONFIG['login'] : $_CONFIG['author'] );
+define('BASE_LANG', $_CONFIG['locale']);
+define('BASE_URL', (empty($_SERVER['REQUEST_SCHEME']) ? 'http' : $_SERVER['REQUEST_SCHEME']).'://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['SCRIPT_NAME']).'/');
+
+$tpl->assign('MyBooksVersion', preg_replace('#(\d+\.\d+)(\.\d+)#', '$1', MYBOOKS_VERSION));
 
 /**
  * Rain class
@@ -74,7 +79,9 @@ class RainTPL {static $tpl_dir="templates/";static $cache_dir="cache/";static $b
  * Adapted from Laravel
  */
 class String {
-public static function slug($title, $separator = '-') { $title = static::ascii($title); $title = preg_replace('![^'.preg_quote($separator).'\pL\pN\s]+!u', '', static::lower($title)); $title = preg_replace('!['.preg_quote($separator).'\s]+!u', $separator, $title); return trim($title, $separator); } public static function ascii($value) { $foreign = array('/æ|ǽ/' => 'ae', '/œ/' => 'oe', '/À|Á|Â|Ã|Ä|Å|Ǻ|Ā|Ă|Ą|Ǎ|А/' => 'A', '/à|á|â|ã|ä|å|ǻ|ā|ă|ą|ǎ|ª|а/' => 'a', '/Б/' => 'B', '/б/' => 'b', '/Ç|Ć|Ĉ|Ċ|Č|Ц/' => 'C', '/ç|ć|ĉ|ċ|č|ц/' => 'c', '/Ð|Ď|Đ|Д/' => 'Dj', '/ð|ď|đ|д/' => 'dj', '/È|É|Ê|Ë|Ē|Ĕ|Ė|Ę|Ě|Е|Ё|Э/' => 'E', '/è|é|ê|ë|ē|ĕ|ė|ę|ě|е|ё|э/' => 'e', '/Ф/' => 'F', '/ƒ|ф/' => 'f', '/Ĝ|Ğ|Ġ|Ģ|Г/' => 'G', '/ĝ|ğ|ġ|ģ|г/' => 'g', '/Ĥ|Ħ|Х/' => 'H', '/ĥ|ħ|х/' => 'h', '/Ì|Í|Î|Ï|Ĩ|Ī|Ĭ|Ǐ|Į|İ|И/' => 'I', '/ì|í|î|ï|ĩ|ī|ĭ|ǐ|į|ı|и/' => 'i', '/Ĵ|Й/' => 'J', '/ĵ|й/' => 'j', '/Ķ|К/' => 'K', '/ķ|к/' => 'k', '/Ĺ|Ļ|Ľ|Ŀ|Ł|Л/' => 'L', '/ĺ|ļ|ľ|ŀ|ł|л/' => 'l', '/М/' => 'M', '/м/' => 'm', '/Ñ|Ń|Ņ|Ň|Н/' => 'N', '/ñ|ń|ņ|ň|ŉ|н/' => 'n', '/Ö|Ò|Ó|Ô|Õ|Ō|Ŏ|Ǒ|Ő|Ơ|Ø|Ǿ|О/' => 'O', '/ö|ò|ó|ô|õ|ō|ŏ|ǒ|ő|ơ|ø|ǿ|º|о/' => 'o', '/П/' => 'P', '/п/' => 'p', '/Ŕ|Ŗ|Ř|Р/' => 'R', '/ŕ|ŗ|ř|р/' => 'r', '/Ś|Ŝ|Ş|Ș|Š|С/' => 'S', '/ś|ŝ|ş|ș|š|ſ|с/' => 's', '/Ţ|Ț|Ť|Ŧ|Т/' => 'T', '/ţ|ț|ť|ŧ|т/' => 't', '/Ù|Ú|Û|Ũ|Ū|Ŭ|Ů|Ü|Ű|Ų|Ư|Ǔ|Ǖ|Ǘ|Ǚ|Ǜ|У/' => 'U', '/ù|ú|û|ũ|ū|ŭ|ů|ü|ű|ų|ư|ǔ|ǖ|ǘ|ǚ|ǜ|у/' => 'u', '/В/' => 'V', '/в/' => 'v', '/Ý|Ÿ|Ŷ|Ы/' => 'Y', '/ý|ÿ|ŷ|ы/' => 'y', '/Ŵ/' => 'W', '/ŵ/' => 'w', '/Ź|Ż|Ž|З/' => 'Z', '/ź|ż|ž|з/' => 'z', '/Æ|Ǽ/' => 'AE', '/ß/'=> 'ss', '/Ĳ/' => 'IJ', '/ĳ/' => 'ij', '/Œ/' => 'OE', '/Ч/' => 'Ch', '/ч/' => 'ch', '/Ю/' => 'Ju', '/ю/' => 'ju', '/Я/' => 'Ja', '/я/' => 'ja', '/Ш/' => 'Sh', '/ш/' => 'sh', '/Щ/' => 'Shch', '/щ/' => 'shch', '/Ж/' => 'Zh', '/ж/' => 'zh' ); $value = preg_replace(array_keys($foreign),  array_values($foreign), $value); return preg_replace('/[^\x09\x0A\x0D\x20-\x7E]/', '', $value); } public static function lower($value) { return (function_exists('mb_get_info')) ? mb_strtolower($value, 'UTF-8') : strtolower($value); } }
+public static function slug($title, $separator = '-') { $title = static::ascii($title); $title = preg_replace('![^'.preg_quote($separator).'\pL\pN\s]+!u', '', static::lower($title)); $title = preg_replace('!['.preg_quote($separator).'\s]+!u', $separator, $title); return trim($title, $separator); } public static function ascii($value) { $foreign = array('/æ|ǽ/' => 'ae', '/œ/' => 'oe', '/À|Á|Â|Ã|Ä|Å|Ǻ|Ā|Ă|Ą|Ǎ|А/' => 'A', '/à|á|â|ã|ä|å|ǻ|ā|ă|ą|ǎ|ª|а/' => 'a', '/Б/' => 'B', '/б/' => 'b', '/Ç|Ć|Ĉ|Ċ|Č|Ц/' => 'C', '/ç|ć|ĉ|ċ|č|ц/' => 'c', '/Ð|Ď|Đ|Д/' => 'Dj', '/ð|ď|đ|д/' => 'dj', '/È|É|Ê|Ë|Ē|Ĕ|Ė|Ę|Ě|Е|Ё|Э/' => 'E', '/è|é|ê|ë|ē|ĕ|ė|ę|ě|е|ё|э/' => 'e', '/Ф/' => 'F', '/ƒ|ф/' => 'f', '/Ĝ|Ğ|Ġ|Ģ|Г/' => 'G', '/ĝ|ğ|ġ|ģ|г/' => 'g', '/Ĥ|Ħ|Х/' => 'H', '/ĥ|ħ|х/' => 'h', '/Ì|Í|Î|Ï|Ĩ|Ī|Ĭ|Ǐ|Į|İ|И/' => 'I', '/ì|í|î|ï|ĩ|ī|ĭ|ǐ|į|ı|и/' => 'i', '/Ĵ|Й/' => 'J', '/ĵ|й/' => 'j', '/Ķ|К/' => 'K', '/ķ|к/' => 'k', '/Ĺ|Ļ|Ľ|Ŀ|Ł|Л/' => 'L', '/ĺ|ļ|ľ|ŀ|ł|л/' => 'l', '/М/' => 'M', '/м/' => 'm', '/Ñ|Ń|Ņ|Ň|Н/' => 'N', '/ñ|ń|ņ|ň|ŉ|н/' => 'n', '/Ö|Ò|Ó|Ô|Õ|Ō|Ŏ|Ǒ|Ő|Ơ|Ø|Ǿ|О/' => 'O', '/ö|ò|ó|ô|õ|ō|ŏ|ǒ|ő|ơ|ø|ǿ|º|о/' => 'o', '/П/' => 'P', '/п/' => 'p', '/Ŕ|Ŗ|Ř|Р/' => 'R', '/ŕ|ŗ|ř|р/' => 'r', '/Ś|Ŝ|Ş|Ș|Š|С/' => 'S', '/ś|ŝ|ş|ș|š|ſ|с/' => 's', '/Ţ|Ț|Ť|Ŧ|Т/' => 'T', '/ţ|ț|ť|ŧ|т/' => 't', '/Ù|Ú|Û|Ũ|Ū|Ŭ|Ů|Ü|Ű|Ų|Ư|Ǔ|Ǖ|Ǘ|Ǚ|Ǜ|У/' => 'U', '/ù|ú|û|ũ|ū|ŭ|ů|ü|ű|ų|ư|ǔ|ǖ|ǘ|ǚ|ǜ|у/' => 'u', '/В/' => 'V', '/в/' => 'v', '/Ý|Ÿ|Ŷ|Ы/' => 'Y', '/ý|ÿ|ŷ|ы/' => 'y', '/Ŵ/' => 'W', '/ŵ/' => 'w', '/Ź|Ż|Ž|З/' => 'Z', '/ź|ż|ž|з/' => 'z', '/Æ|Ǽ/' => 'AE', '/ß/'=> 'ss', '/Ĳ/' => 'IJ', '/ĳ/' => 'ij', '/Œ/' => 'OE', '/Ч/' => 'Ch', '/ч/' => 'ch', '/Ю/' => 'Ju', '/ю/' => 'ju', '/Я/' => 'Ja', '/я/' => 'ja', '/Ш/' => 'Sh', '/ш/' => 'sh', '/Щ/' => 'Shch', '/щ/' => 'shch', '/Ж/' => 'Zh', '/ж/' => 'zh' ); $value = preg_replace(array_keys($foreign),  array_values($foreign), $value); return preg_replace('/[^\x09\x0A\x0D\x20-\x7E]/', '', $value); } public static function lower($value) { return (function_exists('mb_get_info')) ? mb_strtolower($value, 'UTF-8') : strtolower($value); }
+public static function pluralize($word, $quantity, $suffix = 's') { return $word.($quantity>1 ? $suffix : ''); }
+}
 
 /**
  * Book class
@@ -241,6 +248,17 @@ class Books implements Iterator, Countable, ArrayAccess {
 		return false;
 	}
 
+	// return the full URI to image linked to a given book
+ 	public static function CompleteImageURI($book)
+ 	{
+ 		global $_CONFIG;
+ 		$img = !empty($book['link_image']) ? $book['link_image'] : BASE_URL.'assets/img/book.jpg';
+ 		// if img is hosted in local, we have to add server URL before...
+ 		if (substr( $img, 0, strlen($_CONFIG['images'].'/') ) === $_CONFIG['images'].'/') { $img = BASE_URL.$img; }
+
+ 		return $img;
+ 	}
+
 	/*
 	 * Write an RSS file with the books $data given
 	 * $data: books to write
@@ -249,41 +267,36 @@ class Books implements Iterator, Countable, ArrayAccess {
 	 */
 	private function updateRSS($data, $title, $file) {
 		global $_CONFIG;
-		$url = (empty($_SERVER['REQUEST_SCHEME']) ? 'http' : $_SERVER['REQUEST_SCHEME']).'://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['SCRIPT_NAME']).'/';
 		$xml  = '<?xml version="1.0" encoding="UTF-8"?>'.PHP_EOL;
 		$xml .= '<rss version="2.0"  xmlns:atom="http://www.w3.org/2005/Atom">'.PHP_EOL;
 		$xml .= '<channel>'.PHP_EOL;
-		$xml .= '<atom:link href="'.$url.$file.'" rel="self" type="application/rss+xml" />'.PHP_EOL;
+		$xml .= '<atom:link href="'.BASE_URL.$file.'" rel="self" type="application/rss+xml" />'.PHP_EOL;
 		$xml .= '<title>'.$title.'</title>'.PHP_EOL;
-		$xml .= '<link>'.$url.'</link>'.PHP_EOL;
+		$xml .= '<link>'.BASE_URL.'</link>'.PHP_EOL;
 		$xml .= '<description>RSS feed of '.$title.'</description>'.PHP_EOL;
 		$xml .= '<pubDate>'.date("D, d M Y H:i:s O").'</pubDate>'.PHP_EOL;
-		$xml .= '<copyright>'.$url.'</copyright>'.PHP_EOL;
+		$xml .= '<copyright>'.BASE_URL.'</copyright>'.PHP_EOL;
 		$xml .= '<language>'.$_CONFIG['locale'].'</language>'.PHP_EOL;
 		$xml .= '<generator>'.MYBOOKS.'</generator>'.PHP_EOL;
 		$xml .= '<image>'.PHP_EOL;
 		$xml .= '<title>'.$title.'</title>'.PHP_EOL;
-		$xml .= '<url>'.$url.'assets/img/books_48x48.png</url>'.PHP_EOL;
-		$xml .= '<link>'.$url.'</link>'.PHP_EOL;
+		$xml .= '<url>'.BASE_URL.'assets/img/books_48x48.png</url>'.PHP_EOL;
+		$xml .= '<link>'.BASE_URL.'</link>'.PHP_EOL;
 		$xml .= '<width>48</width>'.PHP_EOL;
 		$xml .= '<height>48</height>'.PHP_EOL;
 		$xml .= '</image>'.PHP_EOL;
 		foreach ($data as $id => $book) {
 			$xml .= '<item>'.PHP_EOL;
 			$xml .= '<title>'. $book['title'] .'</title>'.PHP_EOL;
-			$xml .= '<link>'.$url.substr(Path::book($book['id']), 2).'</link>'.PHP_EOL;
+			$xml .= '<link>'.BASE_URL.substr(Path::book($book['id']), 2).'</link>'.PHP_EOL;
 			$xml .= '<description><![CDATA[<p><strong>'.displayAuthors($book['author']).'</strong><br>'.($book['status']==Book::SEEN ? 'Book read &middot; Rated '.$book['note'].'/5' : 'Book not read').'</p><p>'.htmlspecialchars_decode(htmlentities($book['summary'], ENT_COMPAT, 'UTF-8')).'</p>]]></description>'.PHP_EOL;
-			// transform image url if needed
-			$img = !empty($book['link_image']) ? $book['link_image'] : $url.'assets/img/book.jpg';
-			// if img is hosted in local, we have to add $url before...
-			if (substr( $img, 0, strlen($_CONFIG['images'].'/') ) === $_CONFIG['images'].'/') { $img = $url.$img; }
-			$xml .= '<enclosure url="'.$img.'" length="42" type="image/jpeg" />'.PHP_EOL;
+			$xml .= '<enclosure url="'.Books::CompleteImageURI($book).'" length="42" type="image/jpeg" />'.PHP_EOL;
 			$xml .= '<guid isPermaLink="false">'.$book['id'].'</guid>'.PHP_EOL;
 			$xml .= '<pubDate>'.date("D, d M Y H:i:s O", $book['id']).'</pubDate>'.PHP_EOL;
 			foreach (explode(',', $book['genre']) as $genre) {
-				$xml .= '<category domain="'.$url.'?genre='.trim(mb_convert_case($genre, MB_CASE_LOWER, "UTF-8")).'">'.trim(mb_convert_case($genre, MB_CASE_TITLE, "UTF-8")).'</category>'.PHP_EOL;
+				$xml .= '<category domain="'.BASE_URL.'?genre='.trim(mb_convert_case($genre, MB_CASE_LOWER, "UTF-8")).'">'.trim(mb_convert_case($genre, MB_CASE_TITLE, "UTF-8")).'</category>'.PHP_EOL;
 			}
-			$xml .= '<source url="'.$url.$file.'">'.TITLE.'</source>'.PHP_EOL;
+			$xml .= '<source url="'.BASE_URL.$file.'">'.TITLE.'</source>'.PHP_EOL;
 			$xml .= '</item>'.PHP_EOL;
 		}
 		$xml .= '</channel>'.PHP_EOL;
@@ -596,6 +609,7 @@ function writeSettings() {
 	$file .= '$_CONFIG[\'hash\']='.var_export($_CONFIG['hash'], TRUE).'; ';
 	$file .= '$_CONFIG[\'salt\']='.var_export($_CONFIG['salt'], TRUE).'; ';
 	$file .= '$_CONFIG[\'title\']='.var_export($_CONFIG['title'], TRUE).'; ';
+	$file .= '$_CONFIG[\'author\']='.var_export($_CONFIG['author'], TRUE).'; ';
 	$file .= '$_CONFIG[\'robots\']='.var_export($_CONFIG['robots'], TRUE).'; ';
 	$file .= '$_CONFIG[\'locale\']='.var_export($_CONFIG['locale'], TRUE).'; ';
 	$file .= '$_CONFIG[\'pagination\']='.var_export($_CONFIG['pagination'], TRUE).'; ';
@@ -764,6 +778,7 @@ function addAuthorLink($author) { return '<a href="?author='.urlencode(trim(mb_c
 function displayAuthors($authors) {
  	if (empty($authors)) { return NULL; }
  	$authors = explode(",", $authors);
+	$authors = array_map('trim', $authors);
  	ksort($authors);
   //$authors = array_map('addAuthorLink', $authors);
 	$authors = implode(', ', $authors);
@@ -796,6 +811,13 @@ function displayNote($note) {
 	for ($i=0; $i<$empty_stars; $i++)
 		$result .= '<i class="icon-star-empty"></i>';
 	return $result.'</div>'.PHP_EOL;
+}
+// Convert note into stars
+function displaySimpleNote($note) {
+		$result = '';
+		for ($i=0; $i<$note; $i++)
+	  	$result .= '★';
+		return $result;
 }
 // remplace status by icon
 function displayStatus($status) {
@@ -885,6 +907,7 @@ function install($tpl) {
 		$_CONFIG['salt'] = sha1(uniqid('',true).'_'.mt_rand());
 		$_CONFIG['hash'] = sha1($_CONFIG['login'].$_POST['password'].$_CONFIG['salt']);
 		$_CONFIG['title'] = empty($_POST['title']) ? 'MyBooks' : htmlspecialchars(trim($_POST['title']));
+		$_CONFIG['author'] = empty($_POST['author']) ? $_CONFIG['login'] : htmlspecialchars(trim($_POST['author']));
 		$_CONFIG['locale'] = !empty($_POST['locale']) && array_key_exists($_POST['locale'], $_CONFIG['locales']) ? $_POST['locale'] : 'en';
 		writeSettings();
 		header('Location: '.$_SERVER['REQUEST_URI']);
@@ -922,6 +945,14 @@ function bookPage() {
 	$tpl->assign('books_count', $books->count());
 	$tpl->assign('book_next', $books->nextBook($book['id']));
 	$tpl->assign('book_previous', $books->previousBook($book['id']));
+	$social_url = str_replace('./', BASE_URL, Path::book($book['id']));
+	$tpl->assign('social', [
+		'title' => $book['title'],
+		'description' => ($book['status']==Book::SEEN ? displaySimpleNote($book['note']).' — ' : ''). str_replace('<br />', '', displaySummary($book['summary'], 250)),
+		'image' => Books::CompleteImageURI($book),
+		'twitter' => urlencode(($book['status']==Book::SEEN ? 'I’ve rated '.$book['note'].' '.String::pluralize('star', $book['note']) : 'I want to read').' “'.$book['title'].'” from '.($book['author']).' '.$social_url),
+	 	'url' => $social_url
+ 	]);
 	$tpl->draw('book');
 	exit();
 }
@@ -992,6 +1023,7 @@ function settingsPage() {
 			if (!empty($_POST['pagination'])) { $_CONFIG['pagination'] = max(2, $_POST['pagination']+0); }
 			if (!empty($_POST['robots'])) { $_CONFIG['robots'] = parseRobots(in_array('index', $_POST['robots']), in_array('follow', $_POST['robots']), in_array('archive', $_POST['robots']) ); }
 			else { $_CONFIG['robots'] = parseRobots(false, false, false); }
+			$_CONFIG['author'] = empty($_POST['author']) ? $_CONFIG['login'] : htmlspecialchars(trim($_POST['author']));
 			writeSettings();
 			header('Location: '.Path::settings().'&update');
 			exit();
