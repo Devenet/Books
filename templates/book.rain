@@ -76,7 +76,7 @@
 		<p class="summary">{$book['summary']}</p>
 		<ul class="list-inline social-share espace-top-lg text-center">
  			<li><a href="https://twitter.com/home?status={$social.twitter}" rel="external" title="Share on Twitter" class="btn tip" data-placement="top"><span class="icon-twitter"></span></a></li>
- 			<li><a href="https://www.facebook.com/sharer/sharer.php?u={$social.url|urlencode}&t={$social.description|urlencode}" rel="external" title="Share on Facebook" class="btn tip" data-placement="top"><span class="icon-facebook"></span></a></li>
+ 			<li><a href="https://www.facebook.com/sharer/sharer.php?u={$social.url|urlencode}" rel="external" title="Share on Facebook" class="btn tip" data-placement="top"><span class="icon-facebook"></span></a></li>
  			<li><a href="https://plus.google.com/share?url={$social.url|urlencode}" rel="external" title="Share on Google+" class="btn tip" data-placement="top"><span class="icon-google-plus"></span></a></li>
  		</ul>
 
