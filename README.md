@@ -4,7 +4,7 @@ __Light web application to manage books and track their state__
 
 
 
-Version 1.0 is now available!  
+Version 1 is now available!  
 [Download the last version](https://github.com/Devenet/MyBooks/releases)
 
 

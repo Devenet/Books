@@ -29,7 +29,7 @@ $_CONFIG['robots'] = 'noindex,nofollow,noarchive';
 define('PHPPREFIX','<?php /* ');
 define('PHPSUFFIX',' */ ?>');
 define('MYBOOKS', 'MyBooks');
-define('MYBOOKS_VERSION', '1.1.0');
+define('MYBOOKS_VERSION', '1.2.0');
 define('INACTIVITY_TIMEOUT', 3600);
 define('RSS', 'books.rss');
 
