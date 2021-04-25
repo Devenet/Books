@@ -88,7 +88,7 @@
             <ul class="list-unstyled list-smd-inline">
               <li>
                 <span class="{if="$book['status'] == Book::SEEN"}text-success{else}text-muted{/if}">{if="$book['status'] == Book::SEEN"}<i class="bi bi-check-circle-fill"></i> Already read{else}<i class="bi bi-eye-slash"></i> Not read yet{/if}</span>
-                {if="!empty($book['read_date'])"}<br><small>Finised on {function="substr($book['read_date'], 0, isLogged() ? 10 : 7)"}</small>{/if}
+                {if="!empty($book['read_date'])"}<br><small>Finished on {function="substr($book['read_date'], 0, isLogged() ? 10 : 7)"}</small>{/if}
               </li>
             </ul>
             <ul class="list-unstyled list-smd-inlinemt-3">
