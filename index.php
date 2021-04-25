@@ -132,8 +132,8 @@ class Books implements Iterator, Countable, ArrayAccess {
     global $_CONFIG;
     if (!file_exists($_CONFIG['file_database']))  {
       $this->data = array(
-        1375621919 => ['id' => 1375621919, 'title' => 'Le Petit Prince', 'collection' => 'Folio', 'publication_year' => 1999, 'author' => 'Antoine de Saint-Exupéry', 'publisher' => 'Gallimard', 'country' => 'fr', 'genre' => 'Littérature française', 'summary' => '« J’ai ainsi vécu seul, sans personne avec qui parler véritablement, jusqu’à une panne dans le désert du Sahara, il y a six ans. Quelque chose s’était cassé dans mon moteur. Et comme je n’avais avec moi ni mécanicien, ni passagers, je me préparai à essayer de réussir, tout seul, une réparation difficile. C’était pour moi une question de vie ou de mort. J’avais à peine de l’eau à boire pour huit jours.<br>Le premier soir je me suis donc endormi sur le sable à mille milles de toute terre habitée. J’étais bien plus isolé qu’un naufragé sur un radeau au milieu de l’océan. Alors vous imaginez ma surprise, au lever du jour, quand une drôle de petite voix m’a réveillé. Elle disait : … »', 'link_image' => 'images/1375621919.jpg', 'link_website' => 'http://www.gallimard.fr/Catalogue/GALLIMARD/Folio/Folio/Le-Petit-Prince', 'isbn' => '9782070408504', 'pages' => 120, 'status' => Book::SEEN, 'note' => 5, 'review' => 'Beautiful. No other word.', 'read_date' => date('Y-m-d')],
-        1375621920 => ['id' => 1375621920, 'title' => ' Vol de nuit ', 'collection' => 'Folio', 'publication_year' => 1972, 'author' => 'Antoine de Saint-Exupéry', 'publisher' => 'Gallimard', 'country' => 'fr', 'genre' => 'Littérature française', 'summary' => '« Ainsi les trois avions postaux de la Patagonie, du Chili et du Paraguay revenaient du sud, de l’ouest et du nord vers Buenos Aires. On y attendait leur chargement pour donner le départ, vers minuit, à l’avion d’Europe.<br>Trois pilotes, chacun à l’arrière d’un capot lourd comme un chaland, perdus dans la nuit, méditaient leur vol, et, vers la ville immense, descendraient lentement de leur ciel d’orage ou de paix, comme d’étranges paysans descendent de leurs montagnes.<br>Rivière, responsable du réseau entier, se promenait de long en large sur le terrain d’atterrissage de Buenos Aires. Il demeurait silencieux car, jusqu’à l’arrivée des trois avions, cette journée, pour lui, restait redoutable… »', 'link_image' => 'images/1375621920.jpg', 'link_website' => 'http://www.gallimard.fr/Catalogue/GALLIMARD/Folio/Folio/Vol-de-nuit', 'isbn' => '9782070360048', 'pages' => 192, 'status' => Book::NOT_SEEN, 'note' => null]
+        1375621920 => ['id' => 1375621920, 'title' => 'Vol de nuit', 'collection' => 'Folio', 'publication_year' => 1972, 'author' => 'Antoine de Saint-Exupéry', 'publisher' => 'Gallimard', 'country' => 'fr', 'genre' => 'Littérature française', 'summary' => nl2br("« Ainsi les trois avions postaux de la Patagonie, du Chili et du Paraguay revenaient du sud, de l’ouest et du nord vers Buenos Aires. On y attendait leur chargement pour donner le départ, vers minuit, à l’avion d’Europe.\r\nTrois pilotes, chacun à l’arrière d’un capot lourd comme un chaland, perdus dans la nuit, méditaient leur vol, et, vers la ville immense, descendraient lentement de leur ciel d’orage ou de paix, comme d’étranges paysans descendent de leurs montagnes.\r\nRivière, responsable du réseau entier, se promenait de long en large sur le terrain d’atterrissage de Buenos Aires. Il demeurait silencieux car, jusqu’à l’arrivée des trois avions, cette journée, pour lui, restait redoutable… »"), 'link_image' => 'images/1375621920.jpg', 'link_website' => 'http://www.gallimard.fr/Catalogue/GALLIMARD/Folio/Folio/Vol-de-nuit', 'isbn' => '9782070360048', 'pages' => 192, 'status' => Book::NOT_SEEN, 'note' => null],
+        1375621919 => ['id' => 1375621919, 'title' => 'Le Petit Prince', 'collection' => 'Folio', 'publication_year' => 1999, 'author' => 'Antoine de Saint-Exupéry', 'publisher' => 'Gallimard', 'country' => 'fr', 'genre' => 'Littérature française', 'summary' => nl2br("« J’ai ainsi vécu seul, sans personne avec qui parler véritablement, jusqu’à une panne dans le désert du Sahara, il y a six ans. Quelque chose s’était cassé dans mon moteur. Et comme je n’avais avec moi ni mécanicien, ni passagers, je me préparai à essayer de réussir, tout seul, une réparation difficile. C’était pour moi une question de vie ou de mort. J’avais à peine de l’eau à boire pour huit jours.\r\nLe premier soir je me suis donc endormi sur le sable à mille milles de toute terre habitée. J’étais bien plus isolé qu’un naufragé sur un radeau au milieu de l’océan. Alors vous imaginez ma surprise, au lever du jour, quand une drôle de petite voix m’a réveillé. Elle disait : … »"), 'link_image' => 'images/1375621919.jpg', 'link_website' => 'http://www.gallimard.fr/Catalogue/GALLIMARD/Folio/Folio/Le-Petit-Prince', 'isbn' => '9782070408504', 'pages' => 120, 'status' => Book::SEEN, 'note' => 5, 'review' => 'Beautiful. No other word.', 'read_date' => date('Y-m-d')]
       );
       file_put_contents($_CONFIG['file_database'], PHPPREFIX.base64_encode(gzdeflate(serialize($this->data))).PHPSUFFIX);
       $this->RSS();
@@ -380,7 +380,7 @@ class Books implements Iterator, Countable, ArrayAccess {
         'read_date' => (isset($book['read_date']) ? checkInputReadDate($book['read_date'], $input_status) : null),
         'review' => (isset($book['review']) ? checkReview(preg_replace('#<br( /)?>#', '', $book['review']), $input_status) : null),
         'genre' => (isset($book['genre']) ? checkGenre($book['genre']) : null),
-        'publication_year' => (isset($book['release_date']) ? checkInputPublicationYear($book['release_date'], $input_status) : null),
+        'publication_year' => (isset($book['release_date']) ? checkInputPublicationYear($book['release_date']) : null),
         'pages' => (isset($book['pages']) ? checkPages($book['pages']) : null),
         'country' => (isset($book['country']) ? checkCountry($book['country']) : null),
         'link_website' => (isset($book['link_website']) ? checkLink($book['link_website']) : null),
@@ -583,9 +583,8 @@ function checkInputReadDate($date, $status) {
   return implode('-', array($y, str_pad($m, 2, '0', STR_PAD_LEFT), str_pad($d, 2, '0', STR_PAD_LEFT)));
 }
 
-// Check if an year date input is an year
-function checkInputPublicationYear($date, $status) {
-  if ($status != Book::SEEN || empty($date)) { return null; }
+// Check if a year date input is a year
+function checkInputPublicationYear($date) {
   $y = (int) $date+0;
   return ($y > 0) ? $y : null;
 }
@@ -1035,7 +1034,7 @@ function newBook() {
         'read_date' => (isset($_POST['read_date']) ? checkInputReadDate($_POST['read_date'], $input_status) : null),
         'review' => (isset($_POST['review']) ? checkReview($_POST['review'], $input_status) : null),
         'genre' => (isset($_POST['genre']) ? checkGenre($_POST['genre']) : null),
-        'publication_year' => (isset($_POST['publication_year']) ? checkInputPublicationYear($_POST['publication_year'], $input_status) : null),
+        'publication_year' => (isset($_POST['publication_year']) ? checkInputPublicationYear($_POST['publication_year']) : null),
         'pages' => (isset($_POST['pages']) ? checkPages($_POST['pages']) : null),
         'country' => (isset($_POST['country']) ? checkCountry($_POST['country']) : null),
         'link_website' => (isset($_POST['link_website']) ? checkLink($_POST['link_website']) : null),
@@ -1125,7 +1124,7 @@ function editBookPage() {
         'read_date' => (isset($_POST['read_date']) ? checkInputReadDate($_POST['read_date'], $input_status) : null),
         'review' => (isset($_POST['review']) ? checkReview($_POST['review'], $input_status) : null),
         'genre' => (isset($_POST['genre']) ? checkGenre($_POST['genre']) : null),
-        'publication_year' => (isset($_POST['publication_year']) ? checkInputPublicationYear($_POST['publication_year'], $input_status) : null),
+        'publication_year' => (isset($_POST['publication_year']) ? checkInputPublicationYear($_POST['publication_year']) : null),
         'pages' => (isset($_POST['pages']) ? checkPages($_POST['pages']) : null),
         'country' => (isset($_POST['country']) ? checkCountry($_POST['country']) : null),
         'link_website' => (isset($_POST['link_website']) ? checkLink($_POST['link_website']) : null),
