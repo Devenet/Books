@@ -1,38 +1,42 @@
-# ![MyBooks](https://raw.githubusercontent.com/Devenet/MyBooks/master/assets/icon/favicon.png) MyBooks
+# Books
 
-__Light web application to manage books and track their state__  
-
-
-
-Version 1 is now available!  
-[Download the last version](https://github.com/Devenet/MyBooks/releases)
+Books is a light web application to manage books and track ther state.  
+It’s written in PHP, does not require a database and can be easily self hosted.
 
 
-Main features:
-- Simple & fast
-- Intuitive
-- Script on one file
-- No database (data saved in a file)
+Version 2.0 is now available → [download the last version](https://github.com/Devenet/Books/releases) 🚀
+
+
+Main features:  
+- Simple & fast, intuitive & mobile first
+- No database (data is saved in a file)
 - Easy installation
-- Sort by best rating, genre, state (seen or not), date of addition
-- Display your read list
-- Several optional metadata:
-  - Genres
-  - Publisher
-  - Year of publication
-  - Number of pages
-  - Country
-  - Link to external information
-  - Book cover (link or imported image)
-- Add your own review!
-- RSS feeds
-- Choice of number of movies per page
-- Mobile friendly (Bootstrap v3.0 with responsive design)
-- IE < 7 not friendly (not my problem)
-- Export and import books with JSON file (it's possible to keep data private)
-
-![MyBooks](https://raw.github.com/Devenet/MyBooks/master/MyBooks.jpg)
+- Search, best rated, readlist, and random book features
+- Several optional metadata (publisher, publication year, page, note, review, genres, external information link, book cover)
+- RSS feed for last books
+- Export and import feature with JSON file
+- Settings (title, author, robots, pagination)
+- Custom themes supported
 
 
-Adapted from [MyMovies](https://github.com/Devenet/MyMovies) for books
-Inspired by [Shaarli](https://github.com/sebsauvage/Shaarli) and [HelloHappy](http://reading.chad.is).
+![Books](https://raw.github.com/Devenet/Books/master/Books.jpg)
+
+
+Developed by Nicolas Devenet. Under MIT license.  
+Code hosted on https://github.com/Devenet/Books.
+
+Inspired by [Shaarli](https://github.com/sebsauvage/Shaarli).
+
+---
+
+## Migration from v1 to v2
+
+Before migrating to v2:  
+
+- If you want to keep your logs, you have to rename the file `/data/area-51.txt` into `/data/logs.txt`.  
+  Otherwise, nothing to do.
+
+
+After migrating to v2:
+
+- You can delete the obsolete folder `/cache`.
