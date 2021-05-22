@@ -1,0 +1,147 @@
+<!doctype html>
+<html class="h-100">
+<head>
+  {include="page.head"}
+</head>
+<body class="d-flex flex-column h-100">
+  <div class="flex-shrink-0">
+    {include="page.header"}
+
+    <main class="container">
+      <h1 class="mb-3">{$page_title}</h1>
+
+      {if="!empty($error)"}
+      <div class="alert alert-danger">
+        <b>Damn!</b> {$error}
+      </div>
+      {/if}
+
+      <form method="post" action="{$form_action}" class="row mb-3">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="title" class="form-label text-primary">Title <span class="form-text">(required)</span></label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Le Petit Prince" {if="!empty($inputs['title'])"}value="{$inputs['title']}"{/if} required autofocus>
+          </div>
+          <div class="mb-3">
+            <label for="author" class="form-label text-primary">Authors <span class="form-text">(required — comma separated)</span></label>
+            <input type="text" class="form-control" id="author" name="author" placeholder="Antoine de Saint-Exupéry" {if="!empty($inputs['author'])"}value="{$inputs['author']}"{/if} required>
+          </div>
+          <div class="mb-3">
+            <label for="summary" class="form-label text-primary">Summary <span class="form-text">(required)</span></label>
+            <textarea class="form-control" id="summary" name="summary" rows="8" placeholder="The awesome story in a nutshell" required>{if="!empty($inputs['summary'])"}{$inputs['summary']}{/if}</textarea>
+          </div>
+          <div class="mb-2">
+            <label for="link_image" class="form-label">URL to book cover</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-globe"></i></span>
+              <input type="text" class="form-control" id="link_image" name="link_image" placeholder="https://books.com/covers/le-petit-prince.jpg" {if="!empty($inputs['link_image'])"}value="{$inputs['link_image']}"{/if}>
+            </div>
+          </div>
+          <div class="mb-3">
+            <input type="checkbox" class="form-check-input" name="link_image_import" id="link_image_import" {if="!empty($inputs['link_image_import'])"}checked="checked"{/if}>
+            <label for="link_image_import" class="form-check-label">Import book cover</label>
+          </div>
+
+          <div class="card bg-light mb-3">
+            <div class="card-body">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" name="status" id="status" {if="!empty($inputs['status'])"}checked="checked"{/if}>
+                <label for="status" class="form-check-label text-primary">I have read it</label>
+              </div>
+              <div id="review-group" class="mt-3">
+                <div class="mb-2">
+                  <label for="note" class="form-label">Rating (out of 5)</label>
+                  <input type="number" class="form-control" id="note" name="note" min="0" max="5" step="1" value="{if="!empty($inputs['note'])"}{$inputs['note']}{else}3{/if}">
+                </div>
+                <div class="mb-3">
+                  <label for="read_date" class="form-label">Read date</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-calendar-event"></i></span>
+                    <input type="date" class="form-control" id="read_date" name="read_date" placeholder="{$today}" {if="!empty($inputs['read_date'])"}value="{$inputs['read_date']}"{/if}>
+                  </div>
+                </div>
+                <div>
+                  <label for="review" class="form-label">Review</label>
+                  <textarea class="form-control" id="review" name="review" rows="8" placeholder="Your opinion about the book">{if="!empty($inputs['review'])"}{$inputs['review']}{/if}</textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="publisher" class="form-label">Publisher</label>
+            <input type="text" class="form-control" id="publisher" name="publisher" placeholder="Gallimard" {if="!empty($inputs['publisher'])"}value="{$inputs['publisher']}"{/if}>
+          </div>
+          <div class="mb-3">
+            <label for="pages" class="form-label">Number of pages</label>
+            <input type="number" class="form-control" id="pages" name="pages" min="0" step="1" placeholder="42" value="{if="!empty($inputs['pages'])"}{$inputs['pages']}{/if}">
+          </div>
+          <div class="mb-3">
+            <label for="publication_year" class="form-label">Publication year</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-calendar-event"></i></span>
+              <input type="number" class="form-control" id="publication_year" name="publication_year" min="0" step="1" placeholder="{$today_year}" {if="!empty($inputs['publication_year'])"}value="{$inputs['publication_year']}"{/if}>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="country" class="form-label">Country</label>
+            <select class="form-select" id="country" name="country">
+              {$countries}
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="genre" class="form-label">Genres</label>
+            <input type="text" class="form-control" id="genre" name="genre" placeholder="Action, Comedy" {if="!empty($inputs['genre'])"}value="{$inputs['genre']}"{/if}>
+          </div>
+          <div class="mb-3">
+            <label for="link_website" class="form-label">Other information</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-globe"></i></span>
+              <input type="text" class="form-control" id="link_website" name="link_website" placeholder="https://books.com/book/le-petit-prince.html" {if="!empty($inputs['link_website'])"}value="{$inputs['link_website']}"{/if}>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 mt-4 mb-3 clearfix">
+          <input type="hidden" name="token" value="{$token}">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="reset" class="btn btn-outline-secondary ms-2">Reset</button>
+          
+          {if="!empty($id)"}
+            <button type="submit" class="btn btn-danger float-end" name="delete" value="{function="md5($id)"}" id="m-delete-button" data-bs-toggle="modal" data-bs-target="#m-delete">Delete</button>
+
+            <div class="modal fade" id="m-delete" tabindex="-1" aria-labelledby="m-delete-label" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="m-delete-label">Delete book</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    The book <b>{$inputs['title']}</b> will be deleted.
+                    <br>Are you sure?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" name="delete" value="{function="md5($id)"}" class="btn btn-danger">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {/if}
+        </div>
+      </form>
+    </main>
+  </div>
+
+  {include="page.footer"}
+  <script>
+    var view = document.getElementById('status'), review_group = document.getElementById('review-group');
+    review_group.style.display = view.checked ? 'block' : 'none';
+    view.addEventListener('change', function(e) { review_group.style.display = e.currentTarget.checked ? 'block' : 'none'; });
+  </script>
+  {if="!empty($id)"}
+    <script>document.getElementById('m-delete-button').addEventListener('click', function (e) { e.preventDefault(); return; });</script>
+  {/if}
+</body>
+</html>
